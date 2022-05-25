@@ -54,20 +54,22 @@ class NewVsitorTest(LiveServerTestCase):
 		selectionbox = Select (self.browser.find_element_by_id('id_priority_box'))
 		self.assertEqual(
 			[x.text for x in selectionbox.options],
-			["Sem prioridade","Alta","Média","Baixa"]
+			["sem prioridade","alta","média","baixa"]
 		)
 
 		# Ela digita "Comprar anzol" em uma nova caixa de texto
 		# e assinala prioridade alta no campo de seleção de prioridades
 		inputbox.send_keys('Comprar anzol')
 		selectionbox.select_by_visible_text('Alta')
-		#selectionbox.send_keys('alta')
+
 		# Quando ela tecla enter, a página é atualizada, e agora
-		# a página lista "1 - Buy peacock feathers" como um item em 
-		# uma lista de tarefas
+
+		# a página lista "1 - Comprar anzol - prioridade alta"
+
+		# como um item em uma lista de tarefas
 
 		inputbox.send_keys(Keys.ENTER)
-		self.wait_for_row_in_list_table('1: Buy peacock feathers')
+		self.wait_for_row_in_list_table('1: Comprar anzol - Alta')
 
 		# Ainda continua havendo uma caixa de texto convidando-a a 
 		# acrescentar outro item. Ela insere "Use peacock feathers 
