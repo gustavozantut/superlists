@@ -51,17 +51,16 @@ class NewVsitorTest(LiveServerTestCase):
 			inputbox.get_attribute('placeholder'),
 			'Enter a to-do item'
 		)
-		selectionbox = self.browser.find_element_by_id('id_priority_box')
+		selectionbox = Select (self.browser.find_element_by_id('id_priority_box'))
 		self.assertEqual(
-			selectionbox.get_attribute('title'),
-			"Prioridade:"
+			[x.text for x in selectionbox.options],
+			["Sem prioridade","Alta","Média","Baixa"]
 		)
 
-		# Ela digita "Buy peacock feathers" (Comprar penas de pavão)
-		# em uma nova caixa de texto (o hobby de Edith é fazer iscas
-		# para pesca com fly)
-
-		inputbox.send_keys('Buy peacock feathers')
+		# Ela digita "Comprar anzol" em uma nova caixa de texto
+		# e assinala prioridade alta no campo de seleção de prioridades
+		inputbox.send_keys('Comprar anzol')
+		selectionbox.select_by_visible_text('Alta')
 		#selectionbox.send_keys('alta')
 		# Quando ela tecla enter, a página é atualizada, e agora
 		# a página lista "1 - Buy peacock feathers" como um item em 
