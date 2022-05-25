@@ -36,18 +36,24 @@ class NewVsitorTest(LiveServerTestCase):
 		self.browser.get(self.live_server_url)
 
 		# Ela percebe que o título da página e o cabeçalho mencionam
-		# listas de tarefas (to-do)
+        # listas de tarefas com prioridade (priority to-do)
 
 		self.assertIn('priority to-do', self.browser.title)
 		header_text = self.browser.find_element_by_tag_name('h1').text
 		self.assertIn('priority to-do', header_text)
 		
-		# Ela é convidada a inserir um item de tarefa imediatamente
+		# Ela é convidada a inserir um item de tarefa e a prioridade da 
+		# mesma imediatamente
 
 		inputbox = self.browser.find_element_by_id('id_new_item')
 		self.assertEqual(
 			inputbox.get_attribute('placeholder'),
 			'Enter a to-do item'
+		)
+		selectionbox = self.browser.find_element_by_id('id_priority_box')
+		self.assertEqual(
+			selectionbox.get_attribute('placeholder'),
+			'Select a priority'
 		)
 
 		# Ela digita "Buy peacock feathers" (Comprar penas de pavão)
