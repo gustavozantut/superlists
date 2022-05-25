@@ -61,7 +61,7 @@ class NewVsitorTest(LiveServerTestCase):
 		# para pesca com fly)
 
 		inputbox.send_keys('Buy peacock feathers')
-
+		selectionbox.send_keys('alta')
 		# Quando ela tecla enter, a página é atualizada, e agora
 		# a página lista "1 - Buy peacock feathers" como um item em 
 		# uma lista de tarefas
