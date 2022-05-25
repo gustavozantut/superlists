@@ -9,9 +9,13 @@
 			{% csrf_token %}
 		</form>
         <form method="POST" action="/lists/new">
-			<input name="priority_selection" id="id_priority_box" placeholder="Select a priority"/>
+			<select name="priority_selection" id="id_priority_box" title="Sem prioridade">
+                <option value="Sem prioridade">Sem prioridade</option>
+                <option value="Alta">Alta</option>
+                <option value="Média">Média</option>
+                <option value="Baixa">Baixa</option>
+            </select>
 			{% csrf_token %}
-			
 		</form>
 		<table id="id_list_table">
 			{% for item in list.item_set.all %}

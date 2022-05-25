@@ -2,6 +2,7 @@ from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.select import Select
 import time
 
 MAX_WAIT = 10
@@ -52,8 +53,8 @@ class NewVsitorTest(LiveServerTestCase):
 		)
 		selectionbox = self.browser.find_element_by_id('id_priority_box')
 		self.assertEqual(
-			selectionbox.get_attribute('placeholder'),
-			'Select a priority'
+			selectionbox.get_attribute('title'),
+			"Prioridade:"
 		)
 
 		# Ela digita "Buy peacock feathers" (Comprar penas de pavão)
@@ -61,7 +62,7 @@ class NewVsitorTest(LiveServerTestCase):
 		# para pesca com fly)
 
 		inputbox.send_keys('Buy peacock feathers')
-		selectionbox.send_keys('alta')
+		#selectionbox.send_keys('alta')
 		# Quando ela tecla enter, a página é atualizada, e agora
 		# a página lista "1 - Buy peacock feathers" como um item em 
 		# uma lista de tarefas
@@ -75,6 +76,7 @@ class NewVsitorTest(LiveServerTestCase):
 		# Edith é bem metódica)
 		inputbox = self.browser.find_element_by_id('id_new_item')
 		inputbox.send_keys("Use peacock feathers to make a fly")
+		#selectionbox.send_keys('baixa')
 		inputbox.send_keys(Keys.ENTER)
 
 		# A página é atualizada novamente e agora mostra os dois

@@ -5,14 +5,15 @@
 	<body>
 		<h1>priority to-do</h1>
 		<form method="POST" action="/lists/new">
-			<input name="item_text" id="id_new_item" placeholder="Enter a to-do item" />
+			<input name="item_text" id="id_new_item" placeholder="Enter a to-do item" placeholder="Sem prioridade" />
 			{% csrf_token %}
-			
-		</form>
-		<form method="POST" action="/lists/new">
-			<input name="priority_selection" id="id_priority_box" placeholder="Select a priority"/>
+			<select name="priority_selection" id="id_priority_box" title="Prioridade:">
+				<option value="Sem prioridade">Sem prioridade</option>
+                <option value="Alta">Alta</option>
+                <option value="Média">Média</option>
+                <option value="Baixa">Baixa</option>
+            </select>
 			{% csrf_token %}
-			
 		</form>
 	</body>
 </html>
