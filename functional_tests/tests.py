@@ -60,7 +60,7 @@ class NewVsitorTest(LiveServerTestCase):
 		# Ela digita "Comprar anzol" em uma nova caixa de texto
 		# e assinala prioridade alta no campo de seleção de prioridades
 		inputbox.send_keys('Comprar anzol')
-		selectionbox.select_by_visible_text('Alta')
+		selectionbox.select_by_visible_text('alta')
 
 		# Quando ela tecla enter, a página é atualizada, e agora
 
