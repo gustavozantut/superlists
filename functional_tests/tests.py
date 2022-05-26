@@ -69,7 +69,7 @@ class NewVsitorTest(LiveServerTestCase):
 		# como um item em uma lista de tarefas
 
 		inputbox.send_keys(Keys.ENTER)
-		self.wait_for_row_in_list_table('1: Comprar anzol - Alta')
+		self.wait_for_row_in_list_table('1: Comprar anzol - alta')
 
 		# Ainda continua havendo uma caixa de texto convidando-a a 
 		# acrescentar outro item. Ela insere "Use peacock feathers 
