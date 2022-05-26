@@ -7,8 +7,6 @@
 		<form method="POST" action="/lists/{{list.id}}/add_item">
 			<input name="item_text" id="id_new_item" placeholder="Enter a to-do item" />
 			{% csrf_token %}
-		</form>
-        <form method="POST" action="/lists/new">
 			<select name="priority_selection" id="id_priority_box" title="Prioridade:">
                 <option value="sem prioridade">sem prioridade</option>
                 <option value="alta">alta</option>
@@ -19,7 +17,7 @@
 		</form>
 		<table id="id_list_table">
 			{% for item in list.item_set.all %}
-			<tr><td>{{ forloop.counter }}: {{ item.text }}</td></tr>
+			<tr><td>{{ forloop.counter }}: {{ item.text }} - {{ item.priority}}</td></tr>
 			{% endfor %}
 		</table>
 	</body>
