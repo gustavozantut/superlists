@@ -123,8 +123,8 @@ class NewVsitorTest(LiveServerTestCase):
 		# Francis acessa a página inicial. Não há sinal da lista de Edith
 		self.browser.get(self.live_server_url)
 		page_text = self.browser.find_element_by_tag_name('body').text
-		self.assertNotIn('1: Buy peacock feathers - prioridade baixa', page_text)
-		self.assertNotIn('2: Use peacock feathers to make a fly - sem prioridade', page_text)
+		self.assertNotIn('1: Comprar anzol - prioridade alta', page_text)
+		self.assertNotIn('2: Comprar cola instantâne - prioridade baixa', page_text)
 
 		# Francis inicia uma nova lista inserindo um novo item.
 		inputbox = self.browser.find_element_by_id('id_new_item')
