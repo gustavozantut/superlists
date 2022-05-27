@@ -70,7 +70,7 @@ class NewVsitorTest(LiveServerTestCase):
 		# como um item em uma lista de tarefas
 
 		inputbox.send_keys(Keys.ENTER)
-		self.wait_for_row_in_list_table('1: Comprar anzol - alta')
+		self.wait_for_row_in_list_table('1: Comprar anzol - prioridade alta')
 
 		# Ainda continua havendo uma caixa de texto convidando-a a 
 		# acrescentar outro item. Ela insere "Use peacock feathers 
@@ -83,7 +83,7 @@ class NewVsitorTest(LiveServerTestCase):
 
 		# A página é atualizada novamente e agora mostra os dois
 		# itens em sua lista
-		self.wait_for_row_in_list_table('1: Comprar anzol - alta')
+		self.wait_for_row_in_list_table('1: Comprar anzol - prioridade alta')
 		self.wait_for_row_in_list_table('2: Use peacock feathers to make a fly - sem prioridade')
 
 		# Edith se pergunta se o site lembrará de sua lista. Então
@@ -102,7 +102,7 @@ class NewVsitorTest(LiveServerTestCase):
 		inputbox.send_keys('Buy peacock feathers')
 		selectionbox.select_by_visible_text('baixa')
 		inputbox.send_keys(Keys.ENTER)
-		self.wait_for_row_in_list_table('1: Buy peacock feathers - baixa')
+		self.wait_for_row_in_list_table('1: Buy peacock feathers - prioridade baixa')
 
 		#Ela percebe que sua lista te um URL único
 		edith_list_url = self.browser.current_url
@@ -119,7 +119,7 @@ class NewVsitorTest(LiveServerTestCase):
 		# Francis acessa a página inicial. Não há sinal da lista de Edith
 		self.browser.get(self.live_server_url)
 		page_text = self.browser.find_element_by_tag_name('body').text
-		self.assertNotIn('1: Buy peacock feathers - baixa', page_text)
+		self.assertNotIn('1: Buy peacock feathers - prioridade baixa', page_text)
 		self.assertNotIn('2: Use peacock feathers to make a fly - sem prioridade', page_text)
 
 		# Francis inicia uma nova lista inserindo um novo item.
@@ -127,7 +127,7 @@ class NewVsitorTest(LiveServerTestCase):
 		inputbox.send_keys('Buy milk')
 		selectionbox.select_by_visible_text('média')
 		inputbox.send_keys(Keys.ENTER)
-		self.wait_for_row_in_list_table('1: Buy milk - média')
+		self.wait_for_row_in_list_table('1: Buy milk - prioridade média')
 
 		# Francis obtém seu próprio URL exclusivo
 		francis_list_url = self.browser.current_url
@@ -136,7 +136,7 @@ class NewVsitorTest(LiveServerTestCase):
 
 		# Novamente não há sinal algum da lista de Edith
 		page_text = self.browser.find_element_by_tag_name('body').text
-		self.assertNotIn('1: Buy peacock feathers - baixa', page_text)
-		self.assertIn('1: Buy milk - média', page_text)
+		self.assertNotIn('1: Buy peacock feathers - prioridade baixa', page_text)
+		self.assertIn('1: Buy milk - prioridade média', page_text)
 
 		# Fim
