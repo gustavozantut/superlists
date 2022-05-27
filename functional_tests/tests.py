@@ -98,7 +98,7 @@ class NewVsitorTest(LiveServerTestCase):
 		# Edith inicia uma nova lista de tarefas
 		self.browser.get(self.live_server_url)
 		inputbox = self.browser.find_element_by_id('id_new_item')
-		selectionbox = Select (self.browser.find_element_by_id('id_priority_box'))
+		selectionbox = Select(self.browser.find_element_by_id('id_priority_box'))
 		inputbox.send_keys('Buy peacock feathers')
 		selectionbox.select_by_visible_text('baixa')
 		inputbox.send_keys(Keys.ENTER)
@@ -119,14 +119,15 @@ class NewVsitorTest(LiveServerTestCase):
 		# Francis acessa a página inicial. Não há sinal da lista de Edith
 		self.browser.get(self.live_server_url)
 		page_text = self.browser.find_element_by_tag_name('body').text
-		self.assertNotIn('Buy peacock feathers', page_text)
-		self.assertNotIn('make a fly', page_text)
+		self.assertNotIn('1: Buy peacock feathers - baixa', page_text)
+		self.assertNotIn('2: Use peacock feathers to make a fly - sem prioridade', page_text)
 
 		# Francis inicia uma nova lista inserindo um novo item.
 		inputbox = self.browser.find_element_by_id('id_new_item')
 		inputbox.send_keys('Buy milk')
+		selectionbox.select_by_visible_text('média')
 		inputbox.send_keys(Keys.ENTER)
-		self.wait_for_row_in_list_table('1: Buy milk')
+		self.wait_for_row_in_list_table('1: Buy milk - média')
 
 		# Francis obtém seu próprio URL exclusivo
 		francis_list_url = self.browser.current_url
@@ -135,7 +136,7 @@ class NewVsitorTest(LiveServerTestCase):
 
 		# Novamente não há sinal algum da lista de Edith
 		page_text = self.browser.find_element_by_tag_name('body').text
-		self.assertNotIn('Buy peacock feathers', page_text)
-		self.assertIn('Buy milk', page_text)
+		self.assertNotIn('1: Buy peacock feathers - baixa', page_text)
+		self.assertIn('1: Buy milk - média', page_text)
 
 		# Fim
