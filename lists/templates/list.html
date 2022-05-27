@@ -5,15 +5,14 @@
 	<body>
 		<h1>priority to-do</h1>
 		<form method="POST" action="/lists/{{list.id}}/add_item">
-			<input name="item_text" id="id_new_item" placeholder="Enter a to-do item" />
 			{% csrf_token %}
-			<select name="priority_selection" id="id_priority_box" title="Prioridade:">
+			<input name="item_text" id="id_new_item" placeholder="Enter a to-do item" />
+			<select name="priority_selection" id="id_priority_box" title="Prioridade">
                 <option value="sem prioridade">sem prioridade</option>
                 <option value="alta">alta</option>
                 <option value="média">média</option>
                 <option value="baixa">baixa</option>
             </select>
-			{% csrf_token %}
 		</form>
 		<table id="id_list_table">
 			{% for item in list.item_set.all %}
