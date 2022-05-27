@@ -1,3 +1,4 @@
+from email import message
 from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.common.exceptions import WebDriverException
@@ -70,7 +71,6 @@ class NewVsitorTest(LiveServerTestCase):
 
 		selectionbox.send_keys(Keys.ENTER)
 		self.wait_for_row_in_list_table('1: Comprar anzol - alta')
-		print("okkkkk")
 
 		# Ainda continua havendo uma caixa de texto convidando-a a 
 		# acrescentar outro item. Ela insere "Use peacock feathers 
@@ -83,8 +83,8 @@ class NewVsitorTest(LiveServerTestCase):
 
 		# A página é atualizada novamente e agora mostra os dois
 		# itens em sua lista
-		self.wait_for_row_in_list_table('1: Buy peacock feathers')
-		self.wait_for_row_in_list_table('2: Use peacock feathers to make a fly')
+		self.wait_for_row_in_list_table('1: Comprar anzol - alta')
+		self.wait_for_row_in_list_table('2: Use peacock feathers to make a fly - sem prioridade')
 
 		# Edith se pergunta se o site lembrará de sua lista. Então
 		# ela nota que o site gerou um URL único para ela -- há um 
@@ -98,9 +98,11 @@ class NewVsitorTest(LiveServerTestCase):
 		# Edith inicia uma nova lista de tarefas
 		self.browser.get(self.live_server_url)
 		inputbox = self.browser.find_element_by_id('id_new_item')
+		selectionbox = Select (self.browser.find_element_by_id('id_priority_box'))
 		inputbox.send_keys('Buy peacock feathers')
+		selectionbox.select_by_visible_text('baixa')
 		inputbox.send_keys(Keys.ENTER)
-		self.wait_for_row_in_list_table('1: Buy peacock feathers')
+		self.wait_for_row_in_list_table('1: Buy peacock feathers - baixa')
 
 		#Ela percebe que sua lista te um URL único
 		edith_list_url = self.browser.current_url

@@ -6,5 +6,5 @@ class List(models.Model):
 
 class Item(models.Model):
 	text = models.TextField(default='')
-	priority = models.CharField(choices=[("sem prioridade","sem prioridade"),("alta","alta"),("média","média"),("baixa","baixa")], default="sem prioridade", max_length=20)
+	priority = models.CharField(choices=(("sem prioridade","sem prioridade"),("alta","alta"),("média","média"),("baixa","baixa")), default="sem prioridade", max_length=20)
 	list = models.ForeignKey(List,on_delete=models.SET_DEFAULT,default=None)
