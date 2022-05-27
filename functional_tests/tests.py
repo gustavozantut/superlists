@@ -5,6 +5,7 @@ from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
 import time
+from selenium.webdriver.support.ui import WebDriverWait
 
 MAX_WAIT = 10
 
@@ -32,8 +33,9 @@ class NewVsitorTest(LiveServerTestCase):
 
 
 	def test_can_start_a_list_for_one_user(self):
-		# Edith ouviu falar de uma nova aplicação online interessante
-		# para lista de tarefas. Ela decide verificar a homepage
+		# Edith ouviu falar que agora a aplicação online de lista de tarefas
+		# aceita definir prioridades nas tarefas do tipo baixa, média e alta
+		# Ela decide verificar a homepage
 
 		self.browser.get(self.live_server_url)
 
@@ -73,18 +75,20 @@ class NewVsitorTest(LiveServerTestCase):
 		self.wait_for_row_in_list_table('1: Comprar anzol - prioridade alta')
 
 		# Ainda continua havendo uma caixa de texto convidando-a a 
-		# acrescentar outro item. Ela insere "Use peacock feathers 
-		# to make a fly" (Usar penas de pavão para fazer um fly - 
-		# Edith é bem metódica)
+		# acrescentar outro item. Ela insere "Comprar cola instantâne"
+		# e assinala prioridade baixa pois ela ainda tem cola suficiente
+		# por algum tempo
 		inputbox = self.browser.find_element_by_id('id_new_item')
-		inputbox.send_keys("Use peacock feathers to make a fly")
-		#selectionbox.send_keys('baixa')
+		selectionbox = Select (self.browser.find_element_by_id('id_priority_box'))
+		inputbox.send_keys("Comprar cola instantâne")
+		selectionbox.select_by_visible_text('baixa')
+		
 		inputbox.send_keys(Keys.ENTER)
 
 		# A página é atualizada novamente e agora mostra os dois
-		# itens em sua lista
+		# itens em sua lista e as respectivas prioridades
 		self.wait_for_row_in_list_table('1: Comprar anzol - prioridade alta')
-		self.wait_for_row_in_list_table('2: Use peacock feathers to make a fly - sem prioridade')
+		self.wait_for_row_in_list_table('2: Comprar cola instantâne - prioridade baixa')
 
 		# Edith se pergunta se o site lembrará de sua lista. Então
 		# ela nota que o site gerou um URL único para ela -- há um 
@@ -104,7 +108,7 @@ class NewVsitorTest(LiveServerTestCase):
 		inputbox.send_keys(Keys.ENTER)
 		self.wait_for_row_in_list_table('1: Buy peacock feathers - prioridade baixa')
 
-		#Ela percebe que sua lista te um URL único
+		#Ela percebe que sua lista tem um URL único
 		edith_list_url = self.browser.current_url
 		self.assertRegex(edith_list_url, '/lists/.+')
 
@@ -124,6 +128,7 @@ class NewVsitorTest(LiveServerTestCase):
 
 		# Francis inicia uma nova lista inserindo um novo item.
 		inputbox = self.browser.find_element_by_id('id_new_item')
+		selectionbox = Select(self.browser.find_element_by_id('id_priority_box'))
 		inputbox.send_keys('Buy milk')
 		selectionbox.select_by_visible_text('média')
 		inputbox.send_keys(Keys.ENTER)
